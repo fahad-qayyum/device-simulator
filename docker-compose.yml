@@ -26,6 +26,9 @@ services:
       DB_NAME: acme_iot
     ports:
       - "3000:3000"
+      - "3003:3003"
+    volumes:
+      - ./server:/app
 
   dashboard:
     build: ./dashboard
