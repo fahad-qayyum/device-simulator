@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  database:
+    image: mysql:latest
+    container_name: acme_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: acme_iot
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  server:
+    build: ./server
+    container_name: acme_server
+    restart: always
+    depends_on:
+      - database
+    environment:
+      DB_HOST: database
+      DB_USER: root
+      DB_PASSWORD: password
+      DB_NAME: acme_iot
+    ports:
+      - "3000:3000"
+
+  dashboard:
+    build: ./dashboard
+    container_name: acme_dashboard
+    restart: always
+    depends_on:
+      - server
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./dashboard/src:/app/src
+
+  simulator:
+    build: ./simulator
+    container_name: acme_simulator
+    restart: always
+    depends_on:
+      - server
+    ports:
+      - "3002:3002"
+    volumes:
+      - ./simulator/src:/app/src
+
+volumes:
+  db_data:
