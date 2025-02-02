@@ -15,6 +15,19 @@ The ACME Prototype is a React-based application that allows users to simulate an
 - Node.js 18.x
 - Docker
 
+## Installation
+
+1. Clone the repository:
+    ```sh
+    git clone https://github.com/fahad-qayyum/device-simulator.git
+    cd device-simulator
+    ```
+
+2. Install dependencies:
+    ```sh
+    npm install
+    ```
+   
 ## Running the Application
 
 ### Using Docker Compose
